@@ -2,11 +2,14 @@ from django.shortcuts import render
 
 # Create your views here.
 
+def home(request):
+    return render(request, 'index.html')
+
 def about(request):
-    pass
+    return render(request, 'about-us.html')
 
 def contact(request):
-    pass
+    return render(request, 'contact-us.html')
 
 def features(request):
     pass

@@ -6,5 +6,6 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls'), name='dashboard'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
-    path('features/', views.features, name='features'),
+    # path('features/', views.features, name='features'),
+    path('', views.home, name='home'),
 ]

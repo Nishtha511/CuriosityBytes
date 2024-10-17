@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <!-- [Head] start -->
+    {% include 'structure/head-auth.html' %}
+    <!-- [Head] end -->
+
+  <!-- [Body] Start -->
+  <body>
+    <div class="main-wrapper log-wrap">
+      <div class="row">
+        <div class="col-md-6 login-bg">
+          <div class="owl-carousel login-slide owl-theme">
+            <div class="welcome-login">
+              <div class="login-banner">
+                <img src="{% static 'assets/img/login-img.png' %}" class="img-fluid" alt="Logo">
+              </div>
+              <div class="mentor-course text-center">
+                <h2>Welcome to <br>CuriosityBytes Courses. </h2>
+                <p>Start discovering your interests at CuriosityBytes</p>
+              </div>
+            </div>
+            <div class="welcome-login">
+              <div class="login-banner">
+                <img src="{% static 'assets/img/login-img.png' %}" class="img-fluid" alt="Logo">
+              </div>
+              <div class="mentor-course text-center">
+                <h2>Welcome to <br>CuriosityBytes Courses. </h2>
+                <p>Learn about all the path available to you at CuriosityBytes</p>
+              </div>
+            </div>
+            <div class="welcome-login">
+              <div class="login-banner">
+                <img src="{% static 'assets/img/login-img.png' %}" class="img-fluid" alt="Logo">
+              </div>
+              <div class="mentor-course text-center">
+                <h2>Welcome to <br>CuriosityBytes Courses. </h2>
+                <p>Carve your successful future with CuriosityBytes</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 login-wrap-bg">
+          <div class="login-wrapper">
+            <div class="loginbox">
+              <div class="img-logo">
+                <img src="{% static 'assets/img/logo.png' %}" class="img-fluid" alt="Logo">
+                <div class="back-home">
+                  <a href="{% url 'home' %}">Back to Home</a>
+                </div>
+              </div>
+              <h1>Sign up</h1>
+              <form action="https://curiositybytes.tech">
+                <div class="input-block">
+                  <label class="form-control-label">Full Name</label>
+                  <input type="text" class="form-control" placeholder="Enter your Full Name">
+                </div>
+                <div class="input-block">
+                  <label class="form-control-label">Email</label>
+                  <input type="email" class="form-control" placeholder="Enter your email address">
+                </div>
+                <div class="input-block">
+                  <label class="form-control-label">Password</label>
+                  <div class="pass-group" id="passwordInput">
+                    <input type="password" class="form-control pass-input" placeholder="Enter your password">
+                    <span class="toggle-password feather-eye"></span>
+                    <span class="pass-checked">
+                      <i class="feather-check"></i>
+                    </span>
+                  </div>
+                  <div class="password-strength" id="passwordStrength">
+                    <span id="poor"></span>
+                    <span id="weak"></span>
+                    <span id="strong"></span>
+                    <span id="heavy"></span>
+                  </div>
+                  <div id="passwordInfo"></div>
+                </div>
+                <div class="form-check remember-me">
+                  <label class="form-check-label mb-0">
+                    <input class="form-check-input" type="checkbox" name="remember"> I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy.</a>
+                  </label>
+                </div>
+                <div class="d-grid">
+                  <button class="btn btn-primary btn-start" type="submit">Create Account</button>
+                </div>
+              </form>
+            </div>
+            <div class="google-bg text-center">
+              <span>
+                <a href="#">Or sign in with</a>
+              </span>
+              <div class="sign-google">
+                <ul>
+                  <li>
+                    <a href="#">
+                      <img src="{% static 'assets/img/net-icon-01.png' %}" class="img-fluid" alt="Logo"> Sign In using Google </a>
+                  </li>
+                  <li>
+                    <a href="#">
+                      <img src="{% static 'assets/img/net-icon-02.png' %}" class="img-fluid" alt="Logo">Sign In using Facebook </a>
+                  </li>
+                </ul>
+              </div>
+              <p class="mb-0">Already have an account? <a href="{% url 'login' %}">Login here</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Core Js -->
+    {% include 'structure/core-auth.html' %}
+    <!--Core ends-->
+  </body>
+  <!-- [Body] end -->
+</html>
