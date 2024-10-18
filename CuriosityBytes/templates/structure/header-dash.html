@@ -50,21 +50,12 @@
               </a>
             </div>
           </li>
-          {% if user.is_authenticated %}
-              <li class="nav-item">
-              {{ user.email }}
-              </li>
-              <li class="nav-item">
-              <a class="nav-link header-login" href="{% url 'logout' %}">Logout</a>
-              </li>
-          {% else %}
-              {% comment %} <li class="nav-item">
-              <a class="nav-link header-sign" href="{% url 'login' %}">Login</a>
-              </li> {% endcomment %}
-              <li class="nav-item">
-              <a class="nav-link header-login" href="{% url 'login' %}">Login</a>
-              </li>
-          {% endif %}
+          <li class="nav-item">
+            {{ user.email }}
+          </li>
+          <li class="nav-item">
+            <a class="nav-link header-login" href="{% url 'logout' %}">Logout</a>
+          </li>
         </ul>
       </div>
     </nav>
