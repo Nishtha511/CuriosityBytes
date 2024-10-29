@@ -28,7 +28,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # }
 
 CONNECTION_STRING = os.environ['AZURE_POSTGRESQL_CONNECTIONSTRING']
-params = {x.split('='):x.split('=')[1] for x in CONNECTION_STRING.split(';')}
+params = {x.split('=')[0]:x.split('=')[1] for x in CONNECTION_STRING.split(' ')}
 
 DATABASES = {
     'default': {
@@ -39,3 +39,12 @@ DATABASES = {
         'PASSWORD': params['password'],
     }
 }
+
+# STORAGES = {
+#     'default': {
+#         "BACKEND": "django.core.files.storage.FileSystemStorage",
+#     },
+#     'staticfiles': {
+#         "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+#     }
+# }
