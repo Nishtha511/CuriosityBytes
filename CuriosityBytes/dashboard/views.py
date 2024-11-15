@@ -13,15 +13,17 @@ def watch_history(request):
     history = get_user_watch_history(user_id)
 
     data = [{'title': item.title, 'video_id': item.video_id, 'watched_at': item.watched_at} for item in history]
-    return JsonResponse({'watch_history': data}, safe=False)
+    # return JsonResponse({'watch_history': data}, safe=False)
+    return render(request, 'watch-history.html', {'watch_history': data})
 
 def search_history(request):
     user_id = request.GET.get('user_id', 'anonymous')
     history = get_user_search_history(user_id)
 
     data = [{'search_query': item.search_query, 'searched_at': item.searched_at} for item in history]
-    return JsonResponse({'search_history': data}, safe=False)
-def home(request):
+    # return JsonResponse({'search_history': data}, safe=False)
+    return render(request, 'search-history.html', {'search_history': data})
+def dashboard(request):
     if not request.user.is_authenticated:
         return redirect('login')
     return render(request, 'dashboard.html')
