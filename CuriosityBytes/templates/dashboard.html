@@ -12,7 +12,9 @@
   margin-right: auto;
 }
 </style>
-
+<script>
+  console.log("{{shorts|escapejs}}");
+</script>
   <!-- [Body] Start -->
   <body>
     <div class="main-wrapper">
@@ -42,8 +44,42 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-12 col-md-12">
-              
-              <div class="blog shorts">
+              {% for short in shorts %}
+                <div class="blog shorts">
+                  <h4 class="blog-title shorts">
+                    {{short.snippet.title|safe}}
+                  </h4>
+                  <div class="blog-image shorts">
+                    <a href="#">
+                      <!--<iframe width="315" height="560" src="https://www.youtube.com/embed/o500QNAmSVs" title="YouTube video player" frameborder="0&quot;" allowfullscreen=""></iframe>-->
+                      <iframe width="400" height="600" id="player" src="https://www.youtube.com/embed/{{short.id.videoId}}?enablejsapi=1&origin=https://yourdomain.com&showinfo=0&iv_load_policy=3&modestbranding=1&theme=light&color=white&rel=0" frameborder="0"></iframe>
+                    </a>
+                  </div>
+
+                  <div class="blog-info clearfix shorts">
+                    <div class="post-left">
+                      <ul>
+                        <li>
+                          <div class="post-author">
+                            <a href="#">
+                              <img src="{% static 'assets/img/user/user.jpg' %}" alt="Post Author">
+                              <span>{{short.snippet.channelTitle}}</span>
+                            </a>
+                          </div>
+                        </li>
+                        <li>
+                          <img class="img-fluid" src="{% static 'assets/img/icon/icon-22.svg' %}" alt="Img">{{short.snippet.publishTime}}
+                        </li>
+                        {% comment %} <li>
+                          <img class="img-fluid" src="{% static 'assets/img/icon/icon-23.svg' %}" alt="Img">Tag of Video
+                        </li> {% endcomment %}
+                      </ul>
+                    </div>
+                  </div>
+                  
+                </div>
+              {% endfor %}
+              {% comment %} <div class="blog shorts">
                 <div class="blog-image shorts">
                   <a href="#">
                     <!--<iframe width="315" height="560" src="https://www.youtube.com/embed/o500QNAmSVs" title="YouTube video player" frameborder="0&quot;" allowfullscreen=""></iframe>-->
@@ -73,8 +109,8 @@
                 <h3 class="blog-title shorts">
                   Title of YouTube Video or any other specific content we can include
                 </h3>
-              </div>
-              <div class="blog shorts">
+              </div> {% endcomment %}
+              {% comment %} <div class="blog shorts">
                 <div class="blog-image shorts">
                   <a href="#">
                     <!--<iframe width="315" height="560" src="https://www.youtube.com/embed/o500QNAmSVs" title="YouTube video player" frameborder="0&quot;" allowfullscreen=""></iframe>-->
@@ -104,38 +140,7 @@
                 <h3 class="blog-title shorts">
                   Title of YouTube Video or any other specific content we can include
                 </h3>
-              </div>
-              <div class="blog shorts">
-                <div class="blog-image shorts">
-                  <a href="#">
-                    <!--<iframe width="315" height="560" src="https://www.youtube.com/embed/o500QNAmSVs" title="YouTube video player" frameborder="0&quot;" allowfullscreen=""></iframe>-->
-                    <iframe width="500" height="750" id="player" src="https://www.youtube.com/embed/o500QNAmSVs?enablejsapi=1&origin=https://yourdomain.com&showinfo=0&iv_load_policy=3&modestbranding=1&theme=light&color=white&rel=0" frameborder="0"></iframe>
-                  </a>
-                </div>
-                <div class="blog-info clearfix shorts">
-                  <div class="post-left">
-                    <ul>
-                      <li>
-                        <div class="post-author">
-                          <a href="#">
-                            <img src="{% static 'assets/img/user/user.jpg' %}" alt="Post Author">
-                            <span>YouTube Channel Name</span>
-                          </a>
-                        </div>
-                      </li>
-                      <li>
-                        <img class="img-fluid" src="{% static 'assets/img/icon/icon-22.svg' %}" alt="Img"> Date of YouTube Video
-                      </li>
-                      <li>
-                        <img class="img-fluid" src="{% static 'assets/img/icon/icon-23.svg' %}" alt="Img">Tag of Video
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <h3 class="blog-title shorts">
-                  Title of YouTube Video or any other specific content we can include
-                </h3>
-              </div>
+              </div> {% endcomment %}
 
 
 
