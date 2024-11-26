@@ -3,20 +3,20 @@ from .models import YouTubeShort
 from django.conf import settings
 
 API_KEY = settings.YOUTUBE_API_KEY
-TOPICS = [
-    "NASA",
-    "Keerthihistory",
-    "Apnacollegeofficial",
-    "Scienceofinfinity",
-    # "UCPAtCitq_7Al95AWv5yMAwg",
-]
-# ALLOWED_CHANNELS = [
-#     "UCLA_DiR1FfKNvjuUpBHmylQ",
-#     "UCK-HHyVCfKYzhxVOJgBt73w",
-#     "UCBwmMxybNva6P_5VmxjzwqA",
-#     "UCKWe3mXbIf4KtETT2mvUBdg",
+# TOPICS = [
+#     "NASA",
+#     "Keerthihistory",
+#     "Apnacollegeofficial",
+#     "Scienceofinfinity",
 #     # "UCPAtCitq_7Al95AWv5yMAwg",
 # ]
+ALLOWED_CHANNELS = [
+    "UCLA_DiR1FfKNvjuUpBHmylQ",
+    "UCK-HHyVCfKYzhxVOJgBt73w",
+    "UCBwmMxybNva6P_5VmxjzwqA",
+    "UCKWe3mXbIf4KtETT2mvUBdg",
+    # "UCPAtCitq_7Al95AWv5yMAwg",
+]
 
 # TOPICS = ['science', 'maths', 'health', 'education', 'history']
 
@@ -31,9 +31,21 @@ def fetch_shorts_for_topic(topic):
     response = request.execute()
     return response.get('items', [])
 
+def fetch_shorts_for_channel(channel_id):
+    youtube = build('youtube', 'v3', developerKey=API_KEY)
+    request = youtube.search().list(
+        part='snippet',
+        channelId=channel_id,  # Restrict results to the channel
+        type='video',
+        videoDuration='short',  # Only fetch shorts
+        maxResults=10
+    )
+    response = request.execute()
+    return response.get('items', [])
+
 def fetch_and_store_shorts():
-    for topic in TOPICS:
-        videos = fetch_shorts_for_topic(topic)
+    for topic in ALLOWED_CHANNELS:
+        videos = fetch_shorts_for_channel(topic)
         for video in videos:
             video_id = video['id']['videoId']
             title = video['snippet']['title']
