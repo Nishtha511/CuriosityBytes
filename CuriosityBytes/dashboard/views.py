@@ -8,7 +8,7 @@ from .user_preference import get_user_watch_history, get_user_search_history
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
-from .models import YouTubeShort, WatchHistory
+from .models import UserSearchHistory, YouTubeShort, WatchHistory
 from .task import fetch_and_store_shorts
 from django.core.paginator import Paginator
 from newsapi import NewsApiClient
@@ -52,9 +52,19 @@ def search_history(request):
 def dashboard(request):
     if not request.user.is_authenticated:
         return redirect('login')
-    # shorts = fetch_and_store_shorts()
-    # return render(request, 'dashboard.html', {'shorts': shorts})
-    return render(request, 'dashboard.html')
+    if request.method == 'POST':
+        search_query = request.POST.get('search_query')
+        if search_query:
+            # Log search history
+            UserSearchHistory.objects.create(user=request.user, search_query=search_query)
+            videos = fetch_and_store_shorts(search_query)
+            # Fetch the shorts
+            # shorts = get_educational_shorts(search_query)
+            # return render(request, 'dashboard.html', {'shorts': shorts})
+            return render(request, 'dashboard.html', {'shorts': videos})
+    shorts = fetch_and_store_shorts()
+    return render(request, 'dashboard.html', {'shorts': shorts})
+    # return render(request, 'dashboard.html')
 
 # def get_education_shorts(request):
 #     # subject = request.GET.get('subject', 'science')
@@ -86,7 +96,7 @@ def is_loggedin(request):
 
 
 # Fetch YouTube Shorts and store them (manual trigger)
-def fetch_shorts_view(request):
+def fetch_shorts_view():
     videos = fetch_and_store_shorts()  # Trigger fetching
     return JsonResponse({'status': videos})
 
