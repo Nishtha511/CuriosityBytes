@@ -54,6 +54,9 @@ def fetch_and_store_shorts():
             thumbnail_url = video['snippet']['thumbnails']['high']['url']
             published_at = video['snippet']['publishedAt']
             
+            #Clear the table YouTubeShort
+            YouTubeShort.objects.all().delete()
+
             # Save to the database
             YouTubeShort.objects.update_or_create(
                 video_id=video_id,

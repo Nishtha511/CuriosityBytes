@@ -20,6 +20,7 @@ class UserSearchHistory(models.Model):
 
 
 class YouTubeShort(models.Model):
+    user_email = models.CharField(max_length=100)
     video_id = models.CharField(max_length=255, unique=True)
     title = models.CharField(max_length=500)
     description = models.TextField(blank=True, null=True)
