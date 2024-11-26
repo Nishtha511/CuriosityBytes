@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import UserSearchHistory, YouTubeShort, WatchHistory
-from .task import fetch_and_store_shorts
+from .task import fetch_and_store_shorts, fetch_shorts_for_topic
 from django.core.paginator import Paginator
 from newsapi import NewsApiClient
 import datetime
@@ -57,7 +57,7 @@ def dashboard(request):
         if search_query:
             # Log search history
             UserSearchHistory.objects.create(user=request.user, search_query=search_query)
-            videos = fetch_and_store_shorts(search_query)
+            videos = fetch_shorts_for_topic(search_query)
             # Fetch the shorts
             # shorts = get_educational_shorts(search_query)
             # return render(request, 'dashboard.html', {'shorts': shorts})
