@@ -3,11 +3,11 @@ from .models import YouTubeShort
 from django.conf import settings
 
 API_KEY = settings.YOUTUBE_API_KEY
-ALLOWED_CHANNELS = [
-    "UCLA_DiR1FfKNvjuUpBHmylQ",
-    "UCK-HHyVCfKYzhxVOJgBt73w",
-    "UCBwmMxybNva6P_5VmxjzwqA",
-    "UCKWe3mXbIf4KtETT2mvUBdg",
+TOPICS = [
+    "NASA",
+    "Keerthihistory",
+    "Apnacollegeofficial",
+    "Scienceofinfinity",
     # "UCPAtCitq_7Al95AWv5yMAwg",
 ]
 
