@@ -3,13 +3,15 @@ from .models import YouTubeShort
 from django.conf import settings
 
 API_KEY = settings.YOUTUBE_API_KEY
-ALLOWED_CHANNELS = [
-    "UCLA_DiR1FfKNvjuUpBHmylQ",
-    "UCK-HHyVCfKYzhxVOJgBt73w",
-    "UCBwmMxybNva6P_5VmxjzwqA",
-    "UCKWe3mXbIf4KtETT2mvUBdg",
-    # "UCPAtCitq_7Al95AWv5yMAwg",
-]
+# ALLOWED_CHANNELS = [
+#     "UCLA_DiR1FfKNvjuUpBHmylQ",
+#     "UCK-HHyVCfKYzhxVOJgBt73w",
+#     "UCBwmMxybNva6P_5VmxjzwqA",
+#     "UCKWe3mXbIf4KtETT2mvUBdg",
+#     # "UCPAtCitq_7Al95AWv5yMAwg",
+# ]
+
+TOPICS = ['science', 'maths', 'health', 'education', 'history']
 
 def fetch_shorts_for_topic(topic):
     youtube = build('youtube', 'v3', developerKey=API_KEY)
