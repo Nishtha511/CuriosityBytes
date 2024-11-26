@@ -8,7 +8,7 @@ ALLOWED_CHANNELS = [
     "UCK-HHyVCfKYzhxVOJgBt73w",
     "UCBwmMxybNva6P_5VmxjzwqA",
     "UCKWe3mXbIf4KtETT2mvUBdg",
-    "UCPAtCitq_7Al95AWv5yMAwg",
+    # "UCPAtCitq_7Al95AWv5yMAwg",
 ]
 
 def fetch_shorts_for_channel(channel_id):

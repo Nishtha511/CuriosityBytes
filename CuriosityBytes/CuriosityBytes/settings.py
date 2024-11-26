@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-t4w#8-vy=)aurigj!3=fp=_mtjqa9#$f_=%-9!=_15sa#ck&+@'
 # YOUTUBE_API_KEY = 'AIzaSyBmExYFyO1BaBqtgNIqPAWguogPuM20DrQ'
-YOUTUBE_API_KEY = 'AIzaSyDoWzdDnXKppKU4AlbwlN8W8_y2cYani64'
+YOUTUBE_API_KEY = 'AIzaSyCb-9p7JWKy3i14EIWpS2ISodjrQEapc8M'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
