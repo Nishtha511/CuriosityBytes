@@ -1,5 +1,5 @@
 annotated-types==0.7.0
-appsvc-code-profiler @ file:///opt/startup/code_profiler/appsvc_code_profiler-1.0.0-py3-none-any.whl#sha256=3c53292175bbc30ca88a6c67f1fdd3ea263611014548a2975ae2ab350feb621a
+# appsvc-code-profiler @ file:///opt/startup/code_profiler/appsvc_code_profiler-1.0.0-py3-none-any.whl#sha256=3c53292175bbc30ca88a6c67f1fdd3ea263611014548a2975ae2ab350feb621a
 asgiref==3.8.1
 blinker==1.8.2
 blis==1.0.1
