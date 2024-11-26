@@ -47,7 +47,7 @@ def search_history(request):
 
     data = [{'search_query': item.search_query, 'searched_at': item.searched_at} for item in history]
     # return JsonResponse({'search_history': data}, safe=False)
-    return render(request, 'search-history.html', {'search_history': data})
+    return render(request, 'dashboard.html', {'search_history': data})
 
 def dashboard(request):
     if not request.user.is_authenticated:
