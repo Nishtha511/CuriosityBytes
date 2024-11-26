@@ -51,7 +51,7 @@
                   </div>
                 </div>
                 <h1>Login Here</h1>
-                {% comment %} <form action="https://curiositybytes.tech">
+                <form action="https://curiositybytes.tech">
                   <div class="input-block">
                     <label class="form-control-label">Email</label>
                     <input type="email" class="form-control" placeholder="Enter your email address">
@@ -76,13 +76,14 @@
                   <div class="d-grid">
                     <button class="btn btn-primary btn-start" type="submit">Sign In</button>
                   </div>
-                </form> {% endcomment %}
+                </form>
+                <br>
                 {% load socialaccount %}
-                <a href="{% provider_login_url 'google' %}?next=/dashboard" class="btn btn-primary btn-start"><img src="{% static 'assets/img/net-icon-01.png' %}" class="img-fluid" alt="Logo"> Sign In using Google</a>
+                <a href="{% provider_login_url 'google' %}?next=/dashboard" class="btn btn-primary btn-start"><img src="{% static 'assets/img/net-icon-01.png' %}" class="img-fluid" alt="Logo"> Signin using Google</a>
               </div>
             </div>
-            {% comment %} <div class="google-bg text-center">
-              <span>
+            <div class="google-bg text-center">
+              {% comment %} <span>
                 <a href="#">Or sign in with</a>
               </span>
               <div class="sign-google">
@@ -96,10 +97,10 @@
                       <img src="{% static 'assets/img/net-icon-02.png' %}" class="img-fluid" alt="Logo">Sign In using Facebook </a>
                   </li>
                 </ul>
-              </div>
+              </div> {% endcomment %}
               <p class="mb-0">New User ? <a href="{% url 'signup' %}">Create an Account</a>
               </p>
-            </div> {% endcomment %}
+            </div>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
-from .youtube_api import get_educational_shorts
-from .models import UserWatchHistory, UserSearchHistory
+import requests
+# from .youtube_api import get_educational_shorts
+# from .models import UserWatchHistory, UserSearchHistory
 
 from .user_preference import get_user_watch_history, get_user_search_history
 
@@ -10,9 +11,27 @@ from django.contrib.auth.decorators import login_required
 from .models import YouTubeShort, WatchHistory
 from .task import fetch_and_store_shorts
 from django.core.paginator import Paginator
+from newsapi import NewsApiClient
+import datetime
 
-
-
+def news(request):
+    newsapi = NewsApiClient(api_key='693a4d6974254e0d901e46d85e304df7')
+    articles = {}
+    # response = requests.get("https://newsapi.org/v2/top-headlines?country=in&category=education&apiKey=693a4d6974254e0d901e46d85e304df7")
+    # if response.status_code == 200:
+    #     articles = response.json()['articles']
+    articles = newsapi.get_everything(
+                                # q='technology OR astrology OR healthcare OR plant-based-eating OR automobile-technology',
+                                q='technology',
+                                # sources='google-news-in,the-times-of-india',
+                                language='en',
+                                from_param=(datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d"),
+                                to=(datetime.datetime.now()).strftime("%Y-%m-%d"),
+                                sort_by='relevancy')['articles']
+    
+    return render(request, 'news.html', {'articles' : articles})
+    # else:
+    #     return render(request, 'error.html')
 
 def watch_history(request):
     user_id = request.GET.get('user_id', 'anonymous')
@@ -33,8 +52,9 @@ def search_history(request):
 def dashboard(request):
     if not request.user.is_authenticated:
         return redirect('login')
-    shorts = fetch_and_store_shorts()
-    return render(request, 'dashboard.html', {'shorts': shorts})
+    # shorts = fetch_and_store_shorts()
+    # return render(request, 'dashboard.html', {'shorts': shorts})
+    return render(request, 'dashboard.html')
 
 # def get_education_shorts(request):
 #     # subject = request.GET.get('subject', 'science')
@@ -46,19 +66,19 @@ def is_loggedin(request):
     if not request.user.is_authenticated:
         return redirect('login')
     
-def fetch_shorts(request):
-    user_id = request.GET.get('user_id', 'anonymous')  
-    subject = request.GET.get('subject', 'science')  
+# def fetch_shorts(request):
+#     user_id = request.GET.get('user_id', 'anonymous')  
+#     subject = request.GET.get('subject', 'science')  
 
-    # Log search history
-    UserSearchHistory.objects.create(user_id=user_id, search_query=subject)
+#     # Log search history
+#     UserSearchHistory.objects.create(user_id=user_id, search_query=subject)
 
-    shorts = get_educational_shorts(subject)
+#     shorts = get_educational_shorts(subject)
 
-    if 'error' in shorts:
-        return JsonResponse({'error': 'Failed to fetch shorts'}, status=500)
+#     if 'error' in shorts:
+#         return JsonResponse({'error': 'Failed to fetch shorts'}, status=500)
 
-    return JsonResponse({'shorts': shorts}, safe=False)
+#     return JsonResponse({'shorts': shorts}, safe=False)
 
 
 
@@ -76,7 +96,7 @@ def shorts_list_view(request):
     paginator = Paginator(shorts_list, 10)  # Show 10 shorts per page
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, 'dashboard.html', {'page_obj': page_obj})
+    return render(request, 'shorts.html', {'page_obj': page_obj})
 
 @login_required  # Ensure only logged-in users can watch videos
 def watch_video(request, video_id):

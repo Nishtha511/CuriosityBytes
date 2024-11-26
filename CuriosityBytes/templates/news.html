@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <!-- [Head] start -->
+  {% include 'structure/head-dash.html' %}
+  <!-- [Head] end -->
+  
+<style>
+.shorts {
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+<script>
+  console.log("{{shorts|escapejs}}");
+</script>
+  <!-- [Body] Start -->
+  <body>
+    <div class="main-wrapper">
+      <!--Header-->
+      {% include 'structure/header-dash.html' %}
+      <!--Header ends-->
+      <div class="breadcrumb-bar breadcrumb-bar-info">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 col-12">
+              <div class="breadcrumb-list">
+                <h2 class="breadcrumb-title">Dashboard</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item">
+                      Home
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="course-content">
+        <div class="pc-component mt-4">
+          {% for article in articles %}
+          <div class="card">
+            <div class="row g-0">
+              {% if article.urlToImage != None %}
+              <div class="col-2">
+                <img src="{{article.urlToImage}}" class="img-fluid rounded-start" alt="...">
+              </div>
+              {% endif %}
+              
+              <div class="col-10">
+                <div class="card-body">
+                  <h5 class="card-title">{{article.title}}</h5>
+                  <p class="card-text">{{article.description}}</p>
+                  <p class="card-text"><strong>Author - {{article.author}}</strong></p>
+                  <p class="card-text"><small class="text-muted">Published At - {{article.publishedAt}}</small><label class="float-end"><a class="btn btn-primary btn-sm rounded-1" role="button" href="{{article.url}}" target="_blank">Read Full Article</a></label></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </section>
+      <!--footer-->
+      {% include 'structure/footer-alt.html' %}
+      <!--footer ends-->
+    </div>
+    
+  </body>
+</html>

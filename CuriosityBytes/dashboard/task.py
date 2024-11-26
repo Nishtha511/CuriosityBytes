@@ -3,30 +3,23 @@ from .models import YouTubeShort
 from django.conf import settings
 
 API_KEY = settings.YOUTUBE_API_KEY
-ALLOWED_CHANNELS = [
-    "UCLA_DiR1FfKNvjuUpBHmylQ",
-    "UCK-HHyVCfKYzhxVOJgBt73w",
-    "UCBwmMxybNva6P_5VmxjzwqA",
-    "UCKWe3mXbIf4KtETT2mvUBdg",
-    "UCPAtCitq_7Al95AWv5yMAwg",
-]
+TOPICS = ['Science', 'Math', 'History']  # Predefined topics
 
-def fetch_shorts_for_channel(channel_id):
+def fetch_shorts_for_topic(topic):
     youtube = build('youtube', 'v3', developerKey=API_KEY)
     request = youtube.search().list(
+        q=f"{topic} Shorts",
         part='snippet',
-        channelId=channel_id,  # Restrict results to the channel
         type='video',
-        videoDuration='short',  # Only fetch shorts
+        videoDuration='short',
         maxResults=10
     )
     response = request.execute()
     return response.get('items', [])
 
 def fetch_and_store_shorts():
-    for channel_id in ALLOWED_CHANNELS:
-        videos = fetch_shorts_for_channel(channel_id)
-        print(videos)
+    for topic in TOPICS:
+        videos = fetch_shorts_for_topic(topic)
         for video in videos:
             video_id = video['id']['videoId']
             title = video['snippet']['title']
@@ -43,7 +36,8 @@ def fetch_and_store_shorts():
                     'description': description,
                     'channel_id': channel_id,
                     'thumbnail_url': thumbnail_url,
+                    'topic': topic,
                     'published_at': published_at,
                 }
             )
-    return {"status": "Success", "message": "Shorts fetched and stored successfully"}
+    return videos
