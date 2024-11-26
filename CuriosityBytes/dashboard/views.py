@@ -52,18 +52,19 @@ def search_history(request):
 def dashboard(request):
     if not request.user.is_authenticated:
         return redirect('login')
+    
     if request.method == 'POST':
-        search_query = request.POST.get('search_query')
+        search_query = request.POST.get('query')
         if search_query:
             # Log search history
-            UserSearchHistory.objects.create(user=request.user, search_query=search_query)
+            UserSearchHistory.objects.create(user_id=request.user.email, search_query=search_query)
             videos = fetch_shorts_for_topic(search_query)
             # Fetch the shorts
             # shorts = get_educational_shorts(search_query)
-            # return render(request, 'dashboard.html', {'shorts': shorts})
-            return render(request, 'dashboard.html', {'shorts': videos})
-    shorts = fetch_and_store_shorts()
-    return render(request, 'dashboard.html', {'shorts': shorts})
+            # return render(request, 'dashboard.html', {'shorts': shorts}) 
+    else:
+        videos = fetch_and_store_shorts(request.user.email)  
+    return render(request, 'dashboard.html', {'shorts': videos})
     # return render(request, 'dashboard.html')
 
 # def get_education_shorts(request):
@@ -96,7 +97,7 @@ def is_loggedin(request):
 
 
 # Fetch YouTube Shorts and store them (manual trigger)
-def fetch_shorts_view():
+def fetch_shorts_view(email):
     videos = fetch_and_store_shorts()  # Trigger fetching
     return JsonResponse({'status': videos})
 

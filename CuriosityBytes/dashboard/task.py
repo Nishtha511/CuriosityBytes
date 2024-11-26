@@ -25,6 +25,7 @@ def fetch_shorts_for_topic(topic):
     request = youtube.search().list(
         part='snippet',
         type='video',
+        q=topic,
         videoDuration='short',
         maxResults=10
     )
@@ -43,7 +44,7 @@ def fetch_shorts_for_channel(channel_id):
     response = request.execute()
     return response.get('items', [])
 
-def fetch_and_store_shorts():
+def fetch_and_store_shorts(email):
     for topic in ALLOWED_CHANNELS:
         videos = fetch_shorts_for_channel(topic)
         for video in videos:
@@ -55,9 +56,11 @@ def fetch_and_store_shorts():
             published_at = video['snippet']['publishedAt']
             
             # Save to the database
+            
             YouTubeShort.objects.update_or_create(
                 video_id=video_id,
                 defaults={
+                    'user_email' : email,
                     'title': title,
                     'description': description,
                     'channel_id': channel_id,
