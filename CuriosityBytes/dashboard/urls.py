@@ -9,11 +9,5 @@ urlpatterns = [
     # path('get_educational_shorts/', get_educational_shorts, name='get_educational_shorts'),
     path('watch-history/', views.watch_history, name='watch_history'),
     path('search-history/', views.search_history, name='search_history'),
-<<<<<<< HEAD
-    path('search/', search_history, name='your_search_view_name'),
-
-
-=======
     path('news/', views.news, name='news'),
->>>>>>> 36626852562fa62c7c370639d13c84b13b5dce16
 ]
