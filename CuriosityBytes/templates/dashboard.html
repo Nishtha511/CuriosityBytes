@@ -6,39 +6,39 @@
   <!-- [Head] end -->
   
 <style>
-.shorts {
-  max-width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-}
+  .shorts {
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
 
-.search-bar {
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-}
-.search-bar form {
-  display: flex;
-  align-items: center;
-}
-.search-bar input[type="text"] {
-  width: 300px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-.search-bar button {
-  margin-left: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.search-bar button:hover {
-  background-color: #0056b3;
-}
+  .search-bar {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .search-bar form {
+    display: flex;
+    align-items: center;
+  }
+  .search-bar input[type="text"] {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  .search-bar button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .search-bar button:hover {
+    background-color: #0056b3;
+  }
 </style>
 <script>
   console.log("{{shorts|escapejs}}");
@@ -109,9 +109,7 @@
                         <li>
                           <img class="img-fluid" src="{% static 'assets/img/icon/icon-22.svg' %}" alt="Img">{{short.snippet.publishTime}}
                         </li>
-                        {% comment %} <li>
-                          <img class="img-fluid" src="{% static 'assets/img/icon/icon-23.svg' %}" alt="Img">Tag of Video
-                        </li> {% endcomment %}
+                        
                       </ul>
                     </div>
                   </div>
@@ -120,253 +118,8 @@
                 <br/>
                 <br/>
               {% endfor %}
-              {% comment %} <div class="blog shorts">
-                <div class="blog-image shorts">
-                  <a href="#">
-                    <!--<iframe width="315" height="560" src="https://www.youtube.com/embed/o500QNAmSVs" title="YouTube video player" frameborder="0&quot;" allowfullscreen=""></iframe>-->
-                    <iframe width="500" height="750" id="player" src="https://www.youtube.com/embed/o500QNAmSVs?enablejsapi=1&origin=https://yourdomain.com&showinfo=0&iv_load_policy=3&modestbranding=1&theme=light&color=white&rel=0" frameborder="0"></iframe>
-                  </a>
-                </div>
-                <div class="blog-info clearfix shorts">
-                  <div class="post-left">
-                    <ul>
-                      <li>
-                        <div class="post-author">
-                          <a href="#">
-                            <img src="{% static 'assets/img/user/user.jpg' %}" alt="Post Author">
-                            <span>YouTube Channel Name</span>
-                          </a>
-                        </div>
-                      </li>
-                      <li>
-                        <img class="img-fluid" src="{% static 'assets/img/icon/icon-22.svg' %}" alt="Img"> Date of YouTube Video
-                      </li>
-                      <li>
-                        <img class="img-fluid" src="{% static 'assets/img/icon/icon-23.svg' %}" alt="Img">Tag of Video
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <h3 class="blog-title shorts">
-                  Title of YouTube Video or any other specific content we can include
-                </h3>
-              </div> {% endcomment %}
-              {% comment %} <div class="blog shorts">
-                <div class="blog-image shorts">
-                  <a href="#">
-                    <!--<iframe width="315" height="560" src="https://www.youtube.com/embed/o500QNAmSVs" title="YouTube video player" frameborder="0&quot;" allowfullscreen=""></iframe>-->
-                    <iframe width="500" height="750" id="player" src="https://www.youtube.com/embed/o500QNAmSVs?enablejsapi=1&origin=https://yourdomain.com&showinfo=0&iv_load_policy=3&modestbranding=1&theme=light&color=white&rel=0" frameborder="0"></iframe>
-                  </a>
-                </div>
-                <div class="blog-info clearfix shorts">
-                  <div class="post-left">
-                    <ul>
-                      <li>
-                        <div class="post-author">
-                          <a href="#">
-                            <img src="{% static 'assets/img/user/user.jpg' %}" alt="Post Author">
-                            <span>YouTube Channel Name</span>
-                          </a>
-                        </div>
-                      </li>
-                      <li>
-                        <img class="img-fluid" src="{% static 'assets/img/icon/icon-22.svg' %}" alt="Img"> Date of YouTube Video
-                      </li>
-                      <li>
-                        <img class="img-fluid" src="{% static 'assets/img/icon/icon-23.svg' %}" alt="Img">Tag of Video
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <h3 class="blog-title shorts">
-                  Title of YouTube Video or any other specific content we can include
-                </h3>
-              </div> {% endcomment %}
-
-
-
-              
-              {% comment %} <div class="row shorts">
-                <div class="col-md-12">
-                  <ul class="pagination lms-page">
-                    <li class="page-item prev">
-                      <a class="page-link" href="javascript:void(0);" tabindex="-1">
-                        <i class="fas fa-angle-left"></i>
-                      </a>
-                    </li>
-                    <li class="page-item first-page active">
-                      <a class="page-link" href="javascript:void(0);">1</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="javascript:void(0);">2</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="javascript:void(0);">3</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="javascript:void(0);">4</a>
-                    </li>
-                    <li class="page-item">
-                      <a class="page-link" href="javascript:void(0);">5</a>
-                    </li>
-                    <li class="page-item next">
-                      <a class="page-link" href="javascript:void(0);">
-                        <i class="fas fa-angle-right"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div> {% endcomment %}
+    
             </div>
-            <!--<div class="col-lg-3 col-md-12 sidebar-right theiaStickySidebar">
-              <div class="card search-widget blog-search blog-widget">
-                <div class="card-body">
-                  <form class="search-form">
-                    <div class="input-group">
-                      <input type="text" placeholder="Search..." class="form-control">
-                      <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-search"></i>
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-              <div class="card post-widget blog-widget">
-                <div class="card-header">
-                  <h4 class="card-title">Recent Posts</h4>
-                </div>
-                <div class="card-body">
-                  <ul class="latest-posts">
-                    <li>
-                      <div class="post-thumb">
-                        <a href="#">
-                          <img class="img-fluid" src="{% static 'assets/img/blog/blog-01.jpg' %}" alt="Img">
-                        </a>
-                      </div>
-                      <div class="post-info">
-                        <h4>
-                          <a href="#">Learn Webs Applications Development from Experts</a>
-                        </h4>
-                        <p>
-                          <img class="img-fluid" src="{% static 'assets/img/icon/icon-22.svg' %}" alt="Img">Jun 14, 2024
-                        </p>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="post-thumb">
-                        <a href="#">
-                          <img class="img-fluid" src="{% static 'assets/img/blog/blog-02.jpg' %}" alt="Img">
-                        </a>
-                      </div>
-                      <div class="post-info">
-                        <h4>
-                          <a href="#">Expand Your Career Opportunities With Python</a>
-                        </h4>
-                        <p>
-                          <img class="img-fluid" src="{% static 'assets/img/icon/icon-22.svg' %}" alt="Img"> 3 Dec 2019
-                        </p>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="post-thumb">
-                        <a href="#">
-                          <img class="img-fluid" src="{% static 'assets/img/blog/blog-03.jpg' %}" alt="Img">
-                        </a>
-                      </div>
-                      <div class="post-info">
-                        <h4>
-                          <a href="#">Complete PHP Programming Career Guideline</a>
-                        </h4>
-                        <p>
-                          <img class="img-fluid" src="{% static 'assets/img/icon/icon-22.svg' %}" alt="Img"> 3 Dec 2019
-                        </p>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="card category-widget blog-widget">
-                <div class="card-header">
-                  <h4 class="card-title">Categories</h4>
-                </div>
-                <div class="card-body">
-                  <ul class="categories">
-                    <li>
-                      <a href="javascript:void(0);">
-                        <i class="fas fa-angle-right"></i> Business </a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);">
-                        <i class="fas fa-angle-right"></i> Courses </a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);">
-                        <i class="fas fa-angle-right"></i> Education </a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);">
-                        <i class="fas fa-angle-right"></i> Graphics Design </a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);">
-                        <i class="fas fa-angle-right"></i> Programming </a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);">
-                        <i class="fas fa-angle-right"></i> Web Design </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="card category-widget blog-widget">
-                <div class="card-header">
-                  <h4 class="card-title">Archives</h4>
-                </div>
-                <div class="card-body">
-                  <ul class="categories">
-                    <li>
-                      <a href="javascript:void(0);">
-                        <i class="fas fa-angle-right"></i> January 2024 </a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);">
-                        <i class="fas fa-angle-right"></i> February 2024 </a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);">
-                        <i class="fas fa-angle-right"></i> April 2024 </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="card tags-widget blog-widget tags-card">
-                <div class="card-header">
-                  <h4 class="card-title">Latest Tags</h4>
-                </div>
-                <div class="card-body">
-                  <ul class="tags">
-                    <li>
-                      <a href="javascript:void(0);" class="tag">HTML</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);" class="tag">Java Script</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);" class="tag">Css</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);" class="tag">Jquery</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);" class="tag">Java</a>
-                    </li>
-                    <li>
-                      <a href="javascript:void(0);" class="tag">React</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>-->
           </div>
         </div>
       </section>

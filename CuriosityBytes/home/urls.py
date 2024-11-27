@@ -9,5 +9,5 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('blogs/', views.blogs, name='blogs'),
     path('', views.home, name='home'),
-    # re_path(r'^.*$', custom_404_view)
+    re_path(r'^.*$', custom_404_view)
 ]
