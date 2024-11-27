@@ -1,19 +1,36 @@
 # Import necessary libraries
 import pandas as pd
+import requests
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
 from sklearn.neighbors import NearestNeighbors
 import numpy as np
 
-# Step 1: Load user and video data (assumes CSVs but can replace with database queries)
-# Replace these with your actual database calls
-user_history = pd.read_csv("user_history.csv")  # User interaction history: user_id, video_id, interaction_score
-video_metadata = pd.read_csv("video_metadata.csv")  # Video info: video_id, title, tags, category
+def get_recommendations(user_id, userSearchHistory):
+    # Step 1: Load user and video data (assumes CSVs but can replace with database queries)
+    # Replace these with your actual database calls
+    # user_history = pd.read_csv("user_history.csv")  # User interaction history: user_id, video_id, interaction_score
+    # video_metadata = pd.read_csv("video_metadata.csv")  # Video info: video_id, title, tags, category
+    userSearchHistory['title'] = userSearchHistory['search_query'].str.lower()
+    userSearchHistory['user_id'] = userSearchHistory['user_id'].str.lower().apply(email_to_int)
+    userSearchHistory['tags'] = userSearchHistory['search_query'].str.lower().apply(get_category)
+    userSearchHistory['video_id'] = userSearchHistory['search_query'].factorize()[0]
+    # userSearchHistory.rename(columns={'search_query': 'title'}, inplace=True)
+    video_metadata = userSearchHistory[['video_id', 'title', 'tags']].drop_duplicates()
+    userSearchHistory_grouped = userSearchHistory.groupby(['user_id', 'title', 'video_id']).size().reset_index(name='interaction_score')
+    print(userSearchHistory_grouped)
 
-# Preview the data
-print("User History:\n", user_history.head())
-print("Video Metadata:\n", video_metadata.head())
+    user_history = userSearchHistory_grouped[['user_id', 'video_id', 'interaction_score']]
+    print(video_metadata)
+    print(user_history)
+    user_id = email_to_int(user_id)
+    recommendations = hybrid_recommendations(user_id, user_history, video_metadata, top_n=5)
+    print("\nRecommended Videos for User {}:\n".format(user_id), recommendations)
+    # # Preview the data
+    # print("User History:\n", user_history.head())
+    # print("Video Metadata:\n", video_metadata.head())
+    return recommendations
 
 # Step 2: Content-based filtering
 def content_based_recommendations(user_id, user_history, video_metadata, top_n=5):
@@ -22,11 +39,11 @@ def content_based_recommendations(user_id, user_history, video_metadata, top_n=5
     user_videos = user_videos.merge(video_metadata, on='video_id', how='inner')
     
     # Combine tags and category as a single content feature
-    video_metadata['content'] = video_metadata['tags'] + " " + video_metadata['category']
+    # video_metadata['content'] = video_metadata['tags'] + " " + video_metadata['category']
     
     # TF-IDF Vectorizer for text similarity
     tfidf = TfidfVectorizer(stop_words='english')
-    tfidf_matrix = tfidf.fit_transform(video_metadata['content'])
+    tfidf_matrix = tfidf.fit_transform(video_metadata['tags'])
     
     # Get user interaction video IDs and calculate similarity scores
     user_video_ids = user_videos['video_id'].tolist()
@@ -110,10 +127,14 @@ def hybrid_recommendations(user_id, user_history, video_metadata, top_n=5):
     return combined_recs
 
 
+base_url = "https://api.datamuse.com/words"
+def get_category(line):
+    params = {
+        "ml": line,
+        "max": 1
+    }
+    response = requests.get(base_url, params=params)
+    return response.json()[0]["word"]
 
-user_id = 1  # Replace with your test user ID
-recommendations = hybrid_recommendations(user_id, user_history, video_metadata, top_n=5)
-print("\nRecommended Videos for User {}:\n".format(user_id), recommendations)
-
-
-
+def email_to_int(email):
+    return abs(hash(email)) % (10 ** 8)

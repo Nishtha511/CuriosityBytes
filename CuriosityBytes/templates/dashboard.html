@@ -79,29 +79,29 @@
                   <input type="text" name="query" placeholder="Search for videos...">
                   <button type="submit">Search</button>
                 </form>
-
-
               </div>
+
+              <br/>
+              <br/>
 
               {% for short in shorts %}
                 <div class="blog shorts">
-                  <h4 class="blog-title shorts">
-                    {{short.snippet.title|safe}}
-                  </h4>
                   <div class="blog-image shorts">
                     <a href="#">
                       <!--<iframe width="315" height="560" src="https://www.youtube.com/embed/o500QNAmSVs" title="YouTube video player" frameborder="0&quot;" allowfullscreen=""></iframe>-->
                       <iframe width="400" height="600" id="player" src="https://www.youtube.com/embed/{{short.id.videoId}}?enablejsapi=1&origin=https://yourdomain.com&showinfo=0&iv_load_policy=3&modestbranding=1&theme=light&color=white&rel=0" frameborder="0"></iframe>
                     </a>
                   </div>
-
+                  {% comment %} <h5 class="blog-title shorts">
+                    {{short.snippet.title|safe}}
+                  </h5> {% endcomment %}
                   <div class="blog-info clearfix shorts">
                     <div class="post-left">
                       <ul>
                         <li>
                           <div class="post-author">
                             <a href="#">
-                              <img src="{% static 'assets/img/user/user.jpg' %}" alt="Post Author">
+                              <img src="{{short.snippet.thumbnails.high.url}}" alt="Post Author">
                               <span>{{short.snippet.channelTitle}}</span>
                             </a>
                           </div>
@@ -117,6 +117,8 @@
                   </div>
                   
                 </div>
+                <br/>
+                <br/>
               {% endfor %}
               {% comment %} <div class="blog shorts">
                 <div class="blog-image shorts">
@@ -184,7 +186,7 @@
 
 
               
-              <div class="row shorts">
+              {% comment %} <div class="row shorts">
                 <div class="col-md-12">
                   <ul class="pagination lms-page">
                     <li class="page-item prev">
@@ -214,7 +216,7 @@
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div> {% endcomment %}
             </div>
             <!--<div class="col-lg-3 col-md-12 sidebar-right theiaStickySidebar">
               <div class="card search-widget blog-search blog-widget">

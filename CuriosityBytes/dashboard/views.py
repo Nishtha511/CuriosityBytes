@@ -1,4 +1,7 @@
+import random
 import requests
+
+from dashboard.recommandation_system import get_recommendations
 # from .youtube_api import get_educational_shorts
 # from .models import UserWatchHistory, UserSearchHistory
 
@@ -9,10 +12,12 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import login_required
 from .models import UserSearchHistory, YouTubeShort, WatchHistory
-from .task import fetch_and_store_shorts, fetch_shorts_for_topic
+from .task import fetch_and_store_shorts, fetch_and_store_shorts_by_topics, fetch_shorts_for_topic
 from django.core.paginator import Paginator
 from newsapi import NewsApiClient
 import datetime
+import pandas as pd
+
 
 def news(request):
     newsapi = NewsApiClient(api_key='693a4d6974254e0d901e46d85e304df7')
@@ -22,7 +27,7 @@ def news(request):
     #     articles = response.json()['articles']
     articles = newsapi.get_everything(
                                 # q='technology OR astrology OR healthcare OR plant-based-eating OR automobile-technology',
-                                q='technology',
+                                q='maths OR science OR technology',
                                 # sources='google-news-in,the-times-of-india',
                                 language='en',
                                 from_param=(datetime.datetime.now() - datetime.timedelta(days=1)).strftime("%Y-%m-%d"),
@@ -42,28 +47,38 @@ def watch_history(request):
     return render(request, 'watch-history.html', {'watch_history': data})
 
 def search_history(request):
-    user_id = request.GET.get('user_id', 'anonymous')
-    history = get_user_search_history(user_id)
+    # user_id = request.GET.get('user_id', 'anonymous')
+    history = get_user_search_history(request.user.email)
 
     data = [{'search_query': item.search_query, 'searched_at': item.searched_at} for item in history]
     # return JsonResponse({'search_history': data}, safe=False)
-    return render(request, 'dashboard.html', {'search_history': data})
+    return render(request, 'search-history.html', {'search_history': data})
 
 def dashboard(request):
     if not request.user.is_authenticated:
         return redirect('login')
     
+    #Get all objects of UserSearchHistory
+    userSearchHistory = pd.DataFrame(UserSearchHistory.objects.all().values('user_id', 'search_query'))
+    print("User Search History", userSearchHistory)
+    count = userSearchHistory['user_id'].value_counts().get(request.user.email, 0)
+    
     if request.method == 'POST':
         search_query = request.POST.get('query')
         if search_query:
-            # Log search history
+            
             UserSearchHistory.objects.create(user_id=request.user.email, search_query=search_query)
             videos = fetch_shorts_for_topic(search_query)
-            # Fetch the shorts
+            
             # shorts = get_educational_shorts(search_query)
             # return render(request, 'dashboard.html', {'shorts': shorts}) 
     else:
-        videos = fetch_and_store_shorts(request.user.email)  
+        if count > 8:
+            recommandations = get_recommendations(request.user.email, userSearchHistory)
+            videos = fetch_and_store_shorts_by_topics(request.user.email, recommandations['title'])
+        else:
+            videos = fetch_and_store_shorts(request.user.email)  
+    random.shuffle(videos)
     return render(request, 'dashboard.html', {'shorts': videos})
     # return render(request, 'dashboard.html')
 
@@ -91,11 +106,6 @@ def is_loggedin(request):
 
 #     return JsonResponse({'shorts': shorts}, safe=False)
 
-
-
-
-
-
 # Fetch YouTube Shorts and store them (manual trigger)
 def fetch_shorts_view(email):
     videos = fetch_and_store_shorts()  # Trigger fetching
@@ -116,6 +126,6 @@ def watch_video(request, video_id):
 
     # Record the watch history
     WatchHistory.objects.create(user=request.user, video=video)
-
+    
     # Redirect to the video page or render the video template
     return render(request, 'youtube_shorts/video_detail.html', {'video': video})

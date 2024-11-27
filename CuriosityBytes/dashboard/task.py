@@ -73,3 +73,30 @@ def fetch_and_store_shorts(email):
                 }
             )
     return videos
+
+
+def fetch_and_store_shorts_by_topics(email, TOPICS):
+    for topic in TOPICS:
+        videos = fetch_shorts_for_topic(topic)
+        for video in videos:
+            video_id = video['id']['videoId']
+            title = video['snippet']['title']
+            description = video['snippet']['description']
+            channel_id = video['snippet']['channelId']
+            thumbnail_url = video['snippet']['thumbnails']['high']['url']
+            published_at = video['snippet']['publishedAt']
+            
+            # Save to the database
+            YouTubeShort.objects.update_or_create(
+                video_id=video_id,
+                defaults={
+                    'user_email' : email,
+                    'title': title,
+                    'description': description,
+                    'channel_id': channel_id,
+                    'thumbnail_url': thumbnail_url,
+                    'topic': topic,
+                    'published_at': published_at,
+                }
+            )
+    return videos

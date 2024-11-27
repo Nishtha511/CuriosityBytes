@@ -23,7 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-t4w#8-vy=)aurigj!3=fp=_mtjqa9#$f_=%-9!=_15sa#ck&+@'
 # YOUTUBE_API_KEY = 'AIzaSyBmExYFyO1BaBqtgNIqPAWguogPuM20DrQ'
 # YOUTUBE_API_KEY = 'AIzaSyCb-9p7JWKy3i14EIWpS2ISodjrQEapc8M'
-YOUTUBE_API_KEY = "AIzaSyBx5NUb1vzafnnHLkZO6jAcYSNhYXDLu_4"
+# YOUTUBE_API_KEY = "AIzaSyBx5NUb1vzafnnHLkZO6jAcYSNhYXDLu_4"
+# YOUTUBE_API_KEY = "AIzaSyA4mXFjpdUnwcR7HOR9wMeq-RE6_uxJlPQ"
+YOUTUBE_API_KEY = "AIzaSyBdjWzlOc0FFRg0sPoUmr-cgDL5I7liguY"
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
