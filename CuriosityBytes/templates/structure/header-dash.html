@@ -25,10 +25,10 @@
             </a>
           </div>
           <ul class="main-nav">
-            <li><a class href="{% url 'news' %}"> News </a></li>
-            <li><a class href="{% url 'dashboard' %}"> Shorts </a></li>
-            <li><a class href="{% url 'about' %}"> About Us </a></li>
-            <li><a class href="{% url 'contact' %}"> Contact Us </a></li>
+            <li><a class style="color: #C36241;" href="{% url 'news' %}"> News </a></li>
+            <li><a class style="color: #C36241;" href="{% url 'dashboard' %}"> Shorts </a></li>
+            <li><a class style="color: #C36241;" href="{% url 'about' %}"> About Us </a></li>
+            <li><a class style="color: #C36241;" href="{% url 'contact' %}"> Contact Us </a></li>
             {% comment %} <div class="auth-links main-nav">
                 {% if user.is_authenticated %}
                 <li><a class href="{% url 'dashboard' %}">Dashboard</a></li>
@@ -37,7 +37,7 @@
                 <li><a class href="{% url 'login' %}">Login</a></li>
                 {% endif %}
             </div> {% endcomment %}
-            {% comment %} <li><a class="auth-links" href="{% url 'logout' %}">Logout</a></li> {% endcomment %}
+            <li><a class="auth-links" style="color: #C36241;" href="{% url 'logout' %}">Logout</a></li>
           </ul>
         </div>
         <ul class="nav header-navbar-rht">
@@ -55,7 +55,7 @@
             {{ user.email }}
           </li>
           <li class="nav-item">
-            <a class="nav-link header-login" href="{% url 'logout' %}">Logout</a>
+            {% comment %} <a class="nav-link header-login" href="{% url 'logout' %}">Logout</a> {% endcomment %}
           </li>
         </ul>
       </div>
